@@ -8,28 +8,43 @@ namespace Challenge_4
 {
     public class BadgeRepository
     {
-        Dictionary<int, List<string>> _dictOfBadges = new Dictionary<int, List<string>>();
-        List<string> _listOfDoors = new List<string>();
+        Dictionary<int, List<string>> dictOfBadges = new Dictionary<int, List<string>>();
+        List<string> listOfDoors = new List<string>();
 
         public void AddBadge(Badge content)
         {
-            _dictOfBadges.Add(content.BadgeID, content.DoorName);
+            dictOfBadges.Add(content.BadgeID, content.DoorName);
         }
-        public void AddDoorName(string door)
+        public void AddBadgeDoor(string door)
         {
-            _listOfDoors.Add(door);
+            listOfDoors.Add(door);
         }
-        public void RemoveBadge(int BadgeID)
+        public void RemoveBadge(int badge)
         {
-            _dictOfBadges.Remove(BadgeID);
+            dictOfBadges.Remove(badge);
+        }
+        public void RemoveDoor(string doors)
+        {
+            listOfDoors.Remove(doors);
         }
         public Dictionary<int, List<string>> GetBadge()
         {
-            return _dictOfBadges;
+            return dictOfBadges;
         }
         public List<string> GetDoorList()
         {
-            return _listOfDoors;
+            return listOfDoors;
+        }
+        public bool CheckAnswer(string input)
+        {
+            if (input == "y")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
