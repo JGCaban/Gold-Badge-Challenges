@@ -13,9 +13,9 @@ namespace Challenge_8
         InsuranceContent newContent = new InsuranceContent();
         internal void Run()
         {
-            InsuranceContent one = new InsuranceContent("Jose", "Caban", 36, 0, 0, 0, 0, false, 100m);
-            InsuranceContent two = new InsuranceContent("Zadia", "Caban", 38, 3, 0, 5, 0, false, 100m);
-            InsuranceContent three = new InsuranceContent("Eric", "Dawson", 39, 6, 6, 6, 4, true, 180m);
+            InsuranceContent one = new InsuranceContent("Mia", "Wallace", 36, 0, 0, 0, 0, false, 70m);
+            InsuranceContent two = new InsuranceContent("Jules", "Winnfield", 38, 3, 0, 5, 0, false, 95m);
+            InsuranceContent three = new InsuranceContent("Vincent", "Vega", 39, 6, 6, 6, 4, true, 185m);
             _insurranceRepo.AddInsuranceContentToList(one);
             _insurranceRepo.AddInsuranceContentToList(two);
             _insurranceRepo.AddInsuranceContentToList(three);
