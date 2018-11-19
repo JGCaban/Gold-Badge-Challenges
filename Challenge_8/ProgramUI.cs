@@ -13,43 +13,18 @@ namespace Challenge_8
         InsuranceContent newContent = new InsuranceContent();
         internal void Run()
         {
-            InsuranceContent one = new InsuranceContent("Jose", "Caban", 36, 0, 0, 0, 0, false, 105m);
-            InsuranceContent two = new InsuranceContent("Zadia", "Caban", 38, 3, 0, 5, 0, false, 115m);
+            InsuranceContent one = new InsuranceContent("Jose", "Caban", 36, 0, 0, 0, 0, false, 100m);
+            InsuranceContent two = new InsuranceContent("Zadia", "Caban", 38, 3, 0, 5, 0, false, 100m);
             InsuranceContent three = new InsuranceContent("Eric", "Dawson", 39, 6, 6, 6, 4, true, 180m);
             _insurranceRepo.AddInsuranceContentToList(one);
             _insurranceRepo.AddInsuranceContentToList(two);
             _insurranceRepo.AddInsuranceContentToList(three);
             insuranceList = _insurranceRepo.GetInsuranceContentList();
-            int driverAge = 0;
-            int swerve = 0;
-            int closeAccident = 0;
-            int stopSign = 0;
-            int lateForWork = 0;
             bool hadAccident = false;
             decimal premium = 0m;
             bool isRunning = true;
             while (isRunning)
             {
-                if (newContent.DriverAge <= 21)
-                    premium = 100m;
-                else
-                    premium = 70m;
-                if (swerve >= 5)
-                    premium += 25m;
-                if (closeAccident >= 5)
-                    premium += 20m;
-                else
-                    premium += 10m;
-                if (stopSign >= 5)
-                    premium += 25m;
-                else
-                    premium += 15m;
-                if (lateForWork >= 3)
-                    premium += 20m;
-                else
-                    premium += 10m;
-                if (hadAccident == true)
-                    premium += 20m;
                 Console.WriteLine($"Welcome to Smart Insurance customer/driver database.\n\n" +
                                    $"1. Enter new customer/driver information\n" +
                                    $"2. Remove customer/driver from database\n" +
@@ -85,8 +60,43 @@ namespace Challenge_8
                         else
                             hadAccident = false;
                         newContent.HadAccident = hadAccident;
-                        Console.WriteLine($"\nThis driver's estimated premium is: ${premium}");
+                        if (newContent.DriverAge <= 21)
+                            premium = 100m;
+                        else
+                            premium = 70m;
+                        if (newContent.Swerve >= 5)
+                            premium += 25m;
+                        if (newContent.CloseAccident <= 3)
+                        {
+                            if (newContent.CloseAccident != 0)
+                            {
+                                premium += 10m;
+                            }
+                        }
+                        else
+                            premium += 25m;
+                        if (newContent.StopSign <= 3)
+                        {
+                            if (newContent.StopSign != 0)
+                            {
+                                premium += 10m;
+                            }
+                        }
+                        else
+                            premium += 25;
+                        if (newContent.LateForWork <= 3)
+                        {
+                            if (newContent.LateForWork != 0)
+                            {
+                                premium += 10m;
+                            }
+                        }
+                        else
+                            premium += 20m;
+                        if (newContent.HadAccident == true)
+                            premium += 20m;
                         newContent.Premium = premium;
+                        Console.WriteLine($"\nThis driver's estimated premium is: ${premium}");
                         _insurranceRepo.AddInsuranceContentToList(newContent);
                         Console.WriteLine();
                         break;
@@ -98,20 +108,21 @@ namespace Challenge_8
                         }
                         Console.WriteLine("\nEnter the first name of the customer/driver you would like to remove.");
                         string removecustomer = Console.ReadLine();
+                        bool userwasdeleted = false;
                         foreach (InsuranceContent content in _insurranceRepo.GetInsuranceContentList())
                         {
                             if (removecustomer == content.FirstName)
                             {
                                 _insurranceRepo.RemoveMenuContentFromList(content);
                                 Console.WriteLine();
+                                userwasdeleted = true;
                                 break;
                             }
-                            else
-                            {
-                                Console.WriteLine("Name entered does not exist in the customer/driver database");
-                                Console.WriteLine();
-                                break;
-                            }
+                        }
+                        if (userwasdeleted != true)
+                        {
+                            Console.WriteLine("Name entered does not exist in the database.");
+                            Console.WriteLine();
                         }
                         break;
                     case 3:
